@@ -23,12 +23,13 @@ public class VacationServiceTest
         _fixture.Customize(new AutoMoqCustomization());
 
         var routingRepositoryMock = _fixture.Freeze<Mock<IVacationRepository>>();
-        var createVacation = _fixture.Create<CreateVacationDto>();
+        var createVacationDto = _fixture.Create<CreateVacationDto>();
         var vacationService = _fixture.Create<VacationService>();
 
-        await vacationService.AddVacationAsync(createVacation);
+        var vactionCreatedDto = await vacationService.AddVacationAsync(createVacationDto);
         routingRepositoryMock.Verify(rr => rr.AddAsync(It.IsAny<Vacation>()), Times.Once());
         routingRepositoryMock.Verify(rr => rr.SaveChangesAsync(), Times.Once());
+        Assert.Equal(createVacationDto.Name, vactionCreatedDto.Name);
     }
 
     [Theory, AutoData]
@@ -44,12 +45,13 @@ public class VacationServiceTest
         (
             [Frozen] Mock<IVacationRepository> routingRepositoryMock, //This must be before VacationService
             VacationService vacationService,
-            CreateVacationDto vacation
+            CreateVacationDto createVacationDto
         )
     {
-        await vacationService.AddVacationAsync(vacation);
+        var vactionCreatedDto = await vacationService.AddVacationAsync(createVacationDto);
         routingRepositoryMock.Verify(rr => rr.AddAsync(It.IsAny<Vacation>()), Times.Once());
         routingRepositoryMock.Verify(rr => rr.SaveChangesAsync(), Times.Once());
+        Assert.Equal(createVacationDto.Name, vactionCreatedDto.Name);
     }
 
     [Theory, VacationAutoData(_VacationName)]
