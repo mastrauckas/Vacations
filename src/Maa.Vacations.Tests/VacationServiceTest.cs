@@ -22,10 +22,10 @@ public class VacationServiceTest
         fixture.Customize(new AutoMoqCustomization());
 
         var routingRepositoryMock = fixture.Freeze<Mock<IVacationRepository>>();
-        var Vacation = fixture.Create<CreateVacationDto>();
-        var VacationService = fixture.Create<VacationService>();
+        var vacation = fixture.Create<CreateVacationDto>();
+        var vacationService = fixture.Create<VacationService>();
 
-        await VacationService.AddVacationAsync(Vacation);
+        await vacationService.AddVacationAsync(vacation);
         routingRepositoryMock.Verify(rr => rr.AddAsync(It.IsAny<Vacation>()), Times.Once());
         routingRepositoryMock.Verify(rr => rr.SaveChangesAsync(), Times.Once());
     }
