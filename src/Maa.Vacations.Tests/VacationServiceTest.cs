@@ -31,9 +31,9 @@ public class VacationServiceTest
     }
 
     [Theory, AutoData]
-    public async Task MakeSureVacationIsSaved2Test(CreateVacationDto Vacation)
+    public async Task MakeSureVacationIsSaved2Test(CreateVacationDto vacation)
     {
-        await _VacationService.AddVacationAsync(Vacation);
+        await _VacationService.AddVacationAsync(vacation);
         _routingRepositoryMock.Verify(rr => rr.AddAsync(It.IsAny<Vacation>()), Times.Once());
         _routingRepositoryMock.Verify(rr => rr.SaveChangesAsync(), Times.Once());
     }
@@ -42,18 +42,18 @@ public class VacationServiceTest
     public async Task MakeSureVacationIsSaved3Test
         (
             [Frozen] Mock<IVacationRepository> routingRepositoryMock, //This must be before VacationService
-            VacationService VacationService,
-            CreateVacationDto Vacation
+            VacationService vacationService,
+            CreateVacationDto vacation
         )
     {
-        await VacationService.AddVacationAsync(Vacation);
+        await vacationService.AddVacationAsync(vacation);
         routingRepositoryMock.Verify(rr => rr.AddAsync(It.IsAny<Vacation>()), Times.Once());
         routingRepositoryMock.Verify(rr => rr.SaveChangesAsync(), Times.Once());
     }
 
     [Theory, VacationAutoData(_VacationName)]
-    public void CheckNameIsCorrectTest(Vacation Vacation)
+    public void CheckNameIsCorrectTest(Vacation vacation)
     {
-        Assert.Equal(_VacationName, Vacation.Name);
+        Assert.Equal(_VacationName, vacation.Name);
     }
 }

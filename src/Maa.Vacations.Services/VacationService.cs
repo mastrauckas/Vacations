@@ -16,13 +16,13 @@ public class VacationService : IVacationService
         if (createVacationDto is null) throw new ArgumentNullException(nameof(createVacationDto));
         if (createVacationDto.Name is null) throw new ArgumentNullException(nameof(createVacationDto.Name));
 
-        var Vacation = _mapper.Map<Vacation>(createVacationDto);
-        await _vacationRepository.AddAsync(Vacation);
+        var vacation = _mapper.Map<Vacation>(createVacationDto);
+        await _vacationRepository.AddAsync(vacation);
         await _vacationRepository.SaveChangesAsync();
-        return _mapper.Map<VacationCreatedDto>(Vacation);
+        return _mapper.Map<VacationCreatedDto>(vacation);
     }
 
-    public async Task<VacationUpdatedDto?> UpdateVacationAsync(int id , UpdateVacationDto updateVacationDto)
+    public async Task<VacationUpdatedDto?> UpdateVacationAsync(int id, UpdateVacationDto updateVacationDto)
     {
         if (updateVacationDto is null) throw new ArgumentNullException(nameof(updateVacationDto));
         if (updateVacationDto.Name is null) throw new ArgumentNullException(nameof(updateVacationDto.Name));
@@ -35,7 +35,7 @@ public class VacationService : IVacationService
         {
             _mapper.Map(updateVacationDto, Vacation);
             await _vacationRepository.SaveChangesAsync();
-            VacationUpdatedDto =  _mapper.Map<VacationUpdatedDto?>(Vacation);
+            VacationUpdatedDto = _mapper.Map<VacationUpdatedDto?>(Vacation);
         }
 
         return VacationUpdatedDto;
