@@ -43,7 +43,7 @@ public class VacationService : IVacationService
 
     public async Task<DeletedVacationDto?> DeleteVacationAsync(int id)
     {
-        var Vacation = await _vacationRepository.GetByIdAsync(id) ?? throw new ArgumentException($"Vacation with id {id} doesn't exists");
+        var Vacation = await _vacationRepository.GetByIdAsync(id);
         DeletedVacationDto? deletedVacationDto = null;
         if (Vacation is not null && Vacation.DeletedDateTime is null)
         {
