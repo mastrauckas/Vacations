@@ -1,0 +1,12 @@
+global using AutoFixture;
+global using AutoFixture.AutoMoq;
+global using AutoFixture.Xunit2;
+global using Maa.Vacations.Entities;
+global using Maa.Vacations.Repositories;
+global using Maa.Vacations.Services;
+global using Maa.Vacations.Dtos;
+global using Maa.Vacations.Services.Profiles;
+global using Maa.Vacations.Tests.Attributes;
+global using Moq;
+global using Xunit;
+global using AutoMapper;
