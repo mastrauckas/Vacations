@@ -6,6 +6,9 @@ internal class VacationAutoDataAttribute : AutoDataAttribute
     () =>
     {
         var fixture = new Fixture();
+        var configuration = new MapperConfiguration(cfg => cfg.AddProfile<ProfileVacation>());
+        var mapper = configuration.CreateMapper();
+        fixture.Inject(mapper);
         fixture.Customize(new AutoMoqCustomization());
         return fixture;
     })

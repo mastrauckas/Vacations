@@ -2,30 +2,31 @@ namespace Maa.Vacations.Tests;
 
 public class VacationServiceTest
 {
+    private readonly Fixture _fixture;
     private readonly Mock<IVacationRepository> _routingRepositoryMock;
     private readonly VacationService _VacationService;
     private const string _VacationName = "Michael Vacation";
-    private const int _howManyDeliveries = 25;
 
     public VacationServiceTest()
     {
+        _fixture = new Fixture();
         var configuration = new MapperConfiguration(cfg => cfg.AddProfile<ProfileVacation>());
         var mapper = configuration.CreateMapper();
         _routingRepositoryMock = new Mock<IVacationRepository>();
+        _fixture.Inject(mapper);
         _VacationService = new VacationService(_routingRepositoryMock.Object, mapper);
     }
 
     [Fact]
     public async Task MakeSureVacationIsSaved1Test()
     {
-        var fixture = new Fixture();
-        fixture.Customize(new AutoMoqCustomization());
+        _fixture.Customize(new AutoMoqCustomization());
 
-        var routingRepositoryMock = fixture.Freeze<Mock<IVacationRepository>>();
-        var vacation = fixture.Create<CreateVacationDto>();
-        var vacationService = fixture.Create<VacationService>();
+        var routingRepositoryMock = _fixture.Freeze<Mock<IVacationRepository>>();
+        var createVacation = _fixture.Create<CreateVacationDto>();
+        var vacationService = _fixture.Create<VacationService>();
 
-        await vacationService.AddVacationAsync(vacation);
+        await vacationService.AddVacationAsync(createVacation);
         routingRepositoryMock.Verify(rr => rr.AddAsync(It.IsAny<Vacation>()), Times.Once());
         routingRepositoryMock.Verify(rr => rr.SaveChangesAsync(), Times.Once());
     }

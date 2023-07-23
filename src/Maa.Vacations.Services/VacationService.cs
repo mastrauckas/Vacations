@@ -17,6 +17,8 @@ public class VacationService : IVacationService
         if (createVacationDto.Name is null) throw new ArgumentNullException(nameof(createVacationDto.Name));
 
         var vacation = _mapper.Map<Vacation>(createVacationDto);
+        ArgumentNullException.ThrowIfNull(vacation.Name);
+
         await _vacationRepository.AddAsync(vacation);
         await _vacationRepository.SaveChangesAsync();
         return _mapper.Map<VacationCreatedDto>(vacation);
