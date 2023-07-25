@@ -4,8 +4,8 @@ public class VacationServiceTest
 {
     private readonly Fixture _fixture;
     private readonly Mock<IVacationRepository> _routingRepositoryMock;
-    private readonly VacationService _VacationService;
-    private const string _VacationName = "Michael Vacation";
+    private readonly VacationService _vacationService;
+    private const string _vacationName = "Michael Vacation";
 
     public VacationServiceTest()
     {
@@ -14,7 +14,7 @@ public class VacationServiceTest
         var mapper = configuration.CreateMapper();
         _routingRepositoryMock = new Mock<IVacationRepository>();
         _fixture.Inject(mapper);
-        _VacationService = new VacationService(_routingRepositoryMock.Object, mapper);
+        _vacationService = new VacationService(_routingRepositoryMock.Object, mapper);
     }
 
     [Fact]
@@ -35,7 +35,7 @@ public class VacationServiceTest
     [Theory, AutoData]
     public async Task MakeSureVacationIsSaved2Test(CreateVacationDto vacation)
     {
-        await _VacationService.AddVacationAsync(vacation);
+        await _vacationService.AddVacationAsync(vacation);
         _routingRepositoryMock.Verify(rr => rr.AddAsync(It.IsAny<Vacation>()), Times.Once());
         _routingRepositoryMock.Verify(rr => rr.SaveChangesAsync(), Times.Once());
     }
@@ -54,9 +54,9 @@ public class VacationServiceTest
         Assert.Equal(createVacationDto.Name, vactionCreatedDto.Name);
     }
 
-    [Theory, VacationAutoData(_VacationName)]
+    [Theory, VacationAutoData(_vacationName)]
     public void CheckNameIsCorrectTest(Vacation vacation)
     {
-        Assert.Equal(_VacationName, vacation.Name);
+        Assert.Equal(_vacationName, vacation.Name);
     }
 }
