@@ -20,7 +20,7 @@
 
 - [RFC 9110 - HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110)
 - [RFC 6902 - JavaScript Object Notation (JSON) Patch](https://www.rfc-editor.org/rfc/rfc6902)
-- [JSON Merge Patch](https://www.rfc-editor.org/rfc/rfc7396)
+- [RFC 7396 - JSON Merge Patch](https://www.rfc-editor.org/rfc/rfc7396)
 
 
 ## Good Reference
