@@ -20,9 +20,11 @@
 
 - [RFC 9110 - HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110)
 - [RFC 6902 - JavaScript Object Notation (JSON) Patch](https://www.rfc-editor.org/rfc/rfc6902)
+- [JSON Merge Patch](https://www.rfc-editor.org/rfc/rfc7396)
 
 
 ## Good Reference
 
 - [Should HTTP PUT create a resource if it does not exist?](https://stackoverflow.com/questions/56240547/should-http-put-create-a-resource-if-it-does-not-exist)
 - [Updating data with JsonPatch [13 of 18] | Web APIs for Beginners](https://www.youtube.com/watch?v=2MDlJRa4iHs)
+- [Proper way to include data with an HTTP PATCH request](https://stackoverflow.com/questions/17375867/proper-way-to-include-data-with-an-http-patch-request)
