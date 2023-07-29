@@ -26,10 +26,10 @@ public class VacationServiceTest
         var createVacationDto = _fixture.Create<CreateVacationDto>();
         var vacationService = _fixture.Create<VacationService>();
 
-        var vactionCreatedDto = await vacationService.AddVacationAsync(createVacationDto);
+        var vacationCreatedDto = await vacationService.AddVacationAsync(createVacationDto);
         routingRepositoryMock.Verify(rr => rr.AddAsync(It.IsAny<Vacation>()), Times.Once());
         routingRepositoryMock.Verify(rr => rr.SaveChangesAsync(), Times.Once());
-        Assert.Equal(createVacationDto.Name, vactionCreatedDto.Name);
+        Assert.Equal(createVacationDto.Name, vacationCreatedDto.Name);
     }
 
     [Theory, AutoData]
