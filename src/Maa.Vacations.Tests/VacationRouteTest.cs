@@ -29,6 +29,8 @@ public class VacationRouteTest
             Assert.Equal(createVacationDto.Name, vacationCreatedDto.Name);
             Assert.True(vacationCreatedDto.Id > 0);
         }
+
+        client?.Dispose();
     }
 
     private async Task MakeHttpRequest(HttpClient client, HttpStatusCode expectedHttpStatusCode = HttpStatusCode.OK, HttpMethod method = null, object body = null, string contentType = "application/json")
@@ -44,6 +46,8 @@ public class VacationRouteTest
 
         var response = await client.SendAsync(request);
         Assert.Equal(response.StatusCode, expectedHttpStatusCode);
+
+        client?.Dispose();
     }
 
     private async Task<TResponseObject> MakeHttpRequest<TResponseObject>(HttpClient client, HttpStatusCode expectedHttpStatusCode = HttpStatusCode.OK, HttpMethod method = null, object body = null, string contentType = "application/json")
