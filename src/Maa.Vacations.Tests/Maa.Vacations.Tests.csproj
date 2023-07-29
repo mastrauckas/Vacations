@@ -30,8 +30,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Maa.Vacations.Repositories\Maa.Vacations.Repositories.csproj" />
     <ProjectReference Include="..\Maa.Vacations.Dtos\Maa.Vacations.Dtos.csproj" />
-    <ProjectReference Include="..\Maa.Vacations.Dtos\Maa.Vacations.WebApi.csproj" />
     <ProjectReference Include="..\Maa.Vacations.Services\Maa.Vacations.Services.csproj" />
+    <ProjectReference Include="..\Maa.Vacations.WebApi\Maa.Vacations.WebApi.csproj" />
   </ItemGroup>
 
 </Project>
