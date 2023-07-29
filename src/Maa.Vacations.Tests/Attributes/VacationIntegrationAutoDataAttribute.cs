@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
 
-namespace Maa.Vacations.Tests;
+namespace Maa.Vacations.Tests.Attributes;
 
-public class VacationIntegrationAutoData : AutoDataAttribute
+public class VacationIntegrationAutoDataAttribute : AutoDataAttribute
 {
-    public VacationIntegrationAutoData() : base(
+    public VacationIntegrationAutoDataAttribute() : base(
         () =>
         {
             var application = new WebApplicationFactory<Program>();
@@ -20,4 +20,3 @@ public class VacationIntegrationAutoData : AutoDataAttribute
     {
     }
 }
-

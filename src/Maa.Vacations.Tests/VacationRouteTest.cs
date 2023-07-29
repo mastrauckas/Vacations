@@ -6,19 +6,29 @@ namespace Maa.Vacations.Tests;
 
 public class VacationRouteTest
 {
-    [Theory, VacationIntegrationAutoData]
+    [Theory, VacationIntegrationInlineAutoData]
     public async Task Make_Http_Get_Request_Test(HttpClient client)
     {
         await MakeHttpRequest(client);
     }
 
-    [Theory, VacationIntegrationAutoData]
-    public async Task Create_A_Vacation_Test(HttpClient client)
+    [Theory]
+    [VacationIntegrationInlineAutoData("Test Vacation", HttpStatusCode.Created)]
+    [VacationIntegrationInlineAutoData(null, HttpStatusCode.BadRequest)]
+    [VacationIntegrationInlineAutoData("1", HttpStatusCode.BadRequest)]
+    [VacationIntegrationInlineAutoData("12", HttpStatusCode.BadRequest)]
+    [VacationIntegrationInlineAutoData("123", HttpStatusCode.BadRequest)]
+    [VacationIntegrationInlineAutoData("1234", HttpStatusCode.BadRequest)]
+    [VacationIntegrationInlineAutoData("12345", HttpStatusCode.Created)]
+    public async Task Create_A_Vacation_Test(string vactionName, HttpStatusCode statusCode, HttpClient client)
     {
-        CreateVacationDto createVacationDto = new("Test Vacation");
-        var vacationCreatedDto = await MakeHttpRequest<VacationCreatedDto>(client, expectedHttpStatusCode: HttpStatusCode.Created, method: HttpMethod.Post, body: createVacationDto);
-        Assert.Equal(createVacationDto.Name, vacationCreatedDto.Name);
-        Assert.True(vacationCreatedDto.Id > 0);
+        CreateVacationDto createVacationDto = new(vactionName);
+        var vacationCreatedDto = await MakeHttpRequest<VacationCreatedDto>(client, expectedHttpStatusCode: statusCode, method: HttpMethod.Post, body: createVacationDto);
+        if (statusCode == HttpStatusCode.Created)
+        {
+            Assert.Equal(createVacationDto.Name, vacationCreatedDto.Name);
+            Assert.True(vacationCreatedDto.Id > 0);
+        }
     }
 
     private async Task MakeHttpRequest(HttpClient client, HttpStatusCode expectedHttpStatusCode = HttpStatusCode.OK, HttpMethod method = null, object body = null, string contentType = "application/json")
