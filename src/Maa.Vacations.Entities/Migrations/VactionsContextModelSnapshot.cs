@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Maa.Vacations.Entities.Migrations
 {
-    [DbContext(typeof(VactionsContext))]
+    [DbContext(typeof(VacationsContext))]
     partial class VactionsContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

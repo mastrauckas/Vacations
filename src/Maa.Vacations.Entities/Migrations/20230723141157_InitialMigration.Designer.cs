@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Maa.Vacations.Entities.Migrations
 {
-    [DbContext(typeof(VactionsContext))]
+    [DbContext(typeof(VacationsContext))]
     [Migration("20230723141157_InitialMigration")]
     partial class InitialMigration
     {

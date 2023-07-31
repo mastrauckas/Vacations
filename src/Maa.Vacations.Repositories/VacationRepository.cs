@@ -1,8 +1,8 @@
 ﻿namespace Maa.Vacations.Repositories;
 
-public class VacationRepository : BaseRepository<int, Vacation, VactionsContext>, IVacationRepository
+public class VacationRepository : BaseRepository<int, Vacation, VacationsContext>, IVacationRepository
 {
-    public VacationRepository(VactionsContext context) : base(context)
+    public VacationRepository(VacationsContext context) : base(context)
     {
     }
 

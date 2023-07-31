@@ -2,13 +2,14 @@
 
 public static class ConfigureServicesExtension
 {
-    public static void ConfigureService(this IServiceCollection services, string? connectionString)
+    public static void ConfigureService<TDbContext>(this IServiceCollection services, string? connectionString) where TDbContext : DbContext
     {
         if (connectionString is null)
         {
             throw new ArgumentNullException(nameof(connectionString));
         }
-        services.AddDbContext<VactionsContext>(c => c.UseSqlite(connectionString));
+        // services.AddDbContext<VactionsContext>(c => c.UseSqlite(connectionString));
+        services.AddDbContext<TDbContext>(c => c.UseSqlite(connectionString));
         services.AddTransient<IVacationService, VacationService>();
         services.AddTransient<IVacationRepository, VacationRepository>();
 

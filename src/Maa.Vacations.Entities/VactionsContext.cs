@@ -1,8 +1,8 @@
 ﻿namespace Maa.Vacations.Entities;
 
-public class VactionsContext : DbContext
+public class VacationsContext : DbContext
 {
-    public VactionsContext(DbContextOptions<VactionsContext> options) 
+    public VacationsContext(DbContextOptions<VacationsContext> options)
             : base(options)
     {
     }
@@ -23,9 +23,9 @@ public class VactionsContext : DbContext
 
     private void UpdateFields()
     {
-        foreach(var entity in ChangeTracker.Entries().Where(e => e.State == EntityState.Added || e.State == EntityState.Modified))
+        foreach (var entity in ChangeTracker.Entries().Where(e => e.State == EntityState.Added || e.State == EntityState.Modified))
         {
-            if(entity.State == EntityState.Added)
+            if (entity.State == EntityState.Added)
             {
                 var entityBase = entity.Entity as dynamic;
                 entityBase.LastUpdatedDateTime = entityBase.CreateDateTime = DateTime.UtcNow;
