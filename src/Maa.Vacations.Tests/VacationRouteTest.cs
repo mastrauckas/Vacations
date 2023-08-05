@@ -16,11 +16,11 @@ public class VacationRouteTest : BaseIntegrationTest<Program>
     [VacationIntegrationInlineAutoData("123", HttpStatusCode.BadRequest)]
     [VacationIntegrationInlineAutoData("1234", HttpStatusCode.BadRequest)]
     [VacationIntegrationInlineAutoData("12345", HttpStatusCode.Created)]
-    public async Task Create_A_Vacation_Test(string vactionName, HttpStatusCode statusCode)
+    public async Task Create_A_Vacation_Test(string vactionNameExpected, HttpStatusCode statusCodeExpected)
     {
-        CreateVacationDto createVacationDto = new(vactionName);
-        var vacationCreatedDto = await MakeHttpRequest<VacationCreatedDto>(expectedHttpStatusCode: statusCode, method: HttpMethod.Post, body: createVacationDto);
-        if (statusCode == HttpStatusCode.Created)
+        CreateVacationDto createVacationDto = new(vactionNameExpected);
+        var vacationCreatedDto = await MakeHttpRequest<VacationCreatedDto>(expectedHttpStatusCode: statusCodeExpected, method: HttpMethod.Post, body: createVacationDto);
+        if (statusCodeExpected == HttpStatusCode.Created)
         {
             Assert.Equal(createVacationDto.Name, vacationCreatedDto.Name);
             Assert.Equal(1, vacationCreatedDto.Id);
