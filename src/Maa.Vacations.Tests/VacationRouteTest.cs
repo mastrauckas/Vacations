@@ -1,24 +1,7 @@
 ﻿namespace Maa.Vacations.Tests;
 
-public class VacationRouteTest : WebApplicationFactory<Program>
+public class VacationRouteTest : BaseIntegrationTest<Program>
 {
-    private readonly HttpClient _client;
-
-    public VacationRouteTest()
-    {
-        var databaseName = $"Vacations_{Guid.NewGuid()}";
-        var application = new WebApplicationFactory<Program>()
-            .WithWebHostBuilder(builder =>
-            {
-                builder.ConfigureTestServices(services =>
-                    {
-                        services.RemoveAll<DbContextOptions<VacationsContext>>();
-                        services.AddDbContext<VacationsContext>(options => options.UseInMemoryDatabase(databaseName));
-                    });
-            });
-        _client = application.CreateClient();
-    }
-
     [Fact]
     public async Task Make_Http_Get_Request_Test()
     {
