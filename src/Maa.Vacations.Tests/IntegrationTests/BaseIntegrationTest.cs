@@ -1,4 +1,4 @@
-﻿namespace Maa.Vacations.Tests;
+﻿namespace Maa.Vacations.Tests.IntegrationTests;
 
 public abstract class BaseIntegrationTest<TProgram> : WebApplicationFactory<TProgram> where TProgram : class
 {

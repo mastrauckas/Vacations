@@ -35,4 +35,8 @@
     <ProjectReference Include="..\Maa.Vacations.WebApi\Maa.Vacations.WebApi.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Attributes\" />
+  </ItemGroup>
+
 </Project>

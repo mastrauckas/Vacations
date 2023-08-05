@@ -1,4 +1,4 @@
-﻿namespace Maa.Vacations.Tests.Attributes;
+﻿namespace Maa.Vacations.Tests.IntegrationTests.Attributes;
 
 public class VacationIntegrationAutoDataAttribute : AutoDataAttribute
 {

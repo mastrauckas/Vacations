@@ -1,4 +1,4 @@
-﻿namespace Maa.Vacations.Tests;
+﻿namespace Maa.Vacations.Tests.IntegrationTests;
 
 public class VacationRouteTest : BaseIntegrationTest<Program>
 {
