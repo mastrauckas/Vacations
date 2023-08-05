@@ -1,13 +1,14 @@
 ﻿namespace Maa.Vacations.Tests.IntegrationTests;
 
-public abstract class BaseIntegrationTest<TProgram> : WebApplicationFactory<TProgram> where TProgram : class
+public abstract class BaseIntegrationTest<TProgram> : WebApplicationFactory<TProgram>, IDisposable where TProgram : class
 {
     private readonly HttpClient _client;
+    private readonly WebApplicationFactory<TProgram> _webApplicationFactory;
 
     internal BaseIntegrationTest()
     {
         var databaseName = $"Vacations_{Guid.NewGuid()}";
-        var application = new WebApplicationFactory<Program>()
+        _webApplicationFactory = new WebApplicationFactory<TProgram>()
             .WithWebHostBuilder(builder =>
             {
                 builder.ConfigureTestServices(services =>
@@ -16,7 +17,13 @@ public abstract class BaseIntegrationTest<TProgram> : WebApplicationFactory<TPro
                     services.AddDbContext<VacationsContext>(options => options.UseInMemoryDatabase(databaseName));
                 });
             });
-        _client = application.CreateClient();
+        _client = _webApplicationFactory.CreateClient();
+    }
+
+    ~BaseIntegrationTest()
+    {
+        _webApplicationFactory?.Dispose();
+        _client?.Dispose();
     }
 
     protected async Task<TResponseObject> MakeHttpPostRequest<TResponseObject>
