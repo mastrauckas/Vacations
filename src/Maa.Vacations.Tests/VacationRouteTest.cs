@@ -26,43 +26,4 @@ public class VacationRouteTest : BaseIntegrationTest<Program>
             Assert.Equal(1, vacationCreatedDto.Id);
         }
     }
-
-    private async Task MakeHttpRequest(HttpStatusCode expectedHttpStatusCode = HttpStatusCode.OK, HttpMethod method = null, object body = null, string contentType = "application/json")
-    {
-        var requestUri = $"http://localhost/vacations";
-        using var request = new HttpRequestMessage(method ?? HttpMethod.Get, requestUri);
-        if (body is not null)
-        {
-            var payload = JsonSerializer.Serialize(body);
-            request.Content = new StringContent(payload, Encoding.UTF8, contentType);
-        }
-
-        var response = await _client.SendAsync(request);
-        Assert.Equal(response.StatusCode, expectedHttpStatusCode);
-    }
-
-    private async Task<TResponseObject> MakeHttpRequest<TResponseObject>(HttpStatusCode expectedHttpStatusCode = HttpStatusCode.OK, HttpMethod method = null, object body = null, string contentType = "application/json")
-    {
-        var requestUri = $"http://localhost/vacations";
-        using var request = new HttpRequestMessage(method ?? HttpMethod.Get, requestUri);
-        if (body is not null)
-        {
-            var payload = JsonSerializer.Serialize(body);
-            request.Content = new StringContent(payload, Encoding.UTF8, contentType);
-        }
-
-        var response = await _client.SendAsync(request);
-        Assert.Equal(response.StatusCode, expectedHttpStatusCode);
-
-        var content = await response.Content.ReadAsStringAsync();
-
-        var options = new JsonSerializerOptions
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        };
-
-        var deserializedObject = JsonSerializer.Deserialize<TResponseObject>(content, options);
-        Assert.NotNull(deserializedObject);
-        return deserializedObject;
-    }
 }
