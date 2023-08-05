@@ -3,29 +3,25 @@
 public class VacationRouteHttpPostIntegrationTest : BaseIntegrationTest<Program>
 {
     [Theory]
-    [VacationIntegrationInlineAutoData("Test Vacation", 1, HttpStatusCode.Created)]
-    [VacationIntegrationInlineAutoData("12345", 1, HttpStatusCode.Created)]
-    public async Task Http_Create_A_Vacation_Test(string vacationNameExpected, int? expectedId, HttpStatusCode statusCodeExpected)
+    [VacationIntegrationInlineAutoData("Test Vacation", 1)]
+    [VacationIntegrationInlineAutoData("12345", 1)]
+    public async Task Http_Create_A_Vacation_Test(string vacationNameExpected, int? expectedId)
     {
         CreateVacationDto createVacationDto = new(vacationNameExpected);
-        var vacationCreatedDto = await MakeHttpPostRequest<VacationCreatedDto>(createVacationDto, statusCodeExpected);
+        var vacationCreatedDto = await MakeHttpPostRequest<VacationCreatedDto>(createVacationDto, HttpStatusCode.Created);
         Assert.Equal(vacationNameExpected, vacationCreatedDto.Name);
         Assert.Equal(expectedId, vacationCreatedDto.Id);
     }
 
     [Theory]
-    [VacationIntegrationInlineAutoData(null, HttpStatusCode.BadRequest)]
-    [VacationIntegrationInlineAutoData("1", HttpStatusCode.BadRequest)]
-    [VacationIntegrationInlineAutoData("12", HttpStatusCode.BadRequest)]
-    [VacationIntegrationInlineAutoData("123", HttpStatusCode.BadRequest)]
-    [VacationIntegrationInlineAutoData("1234", HttpStatusCode.BadRequest)]
-    public async Task Http_BadRequest_A_Vacation_Test
-    (
-        string vacationNameExpected,
-        HttpStatusCode statusCodeExpected
-    )
+    [VacationIntegrationInlineAutoData(null)]
+    [VacationIntegrationInlineAutoData("1")]
+    [VacationIntegrationInlineAutoData("12")]
+    [VacationIntegrationInlineAutoData("123")]
+    [VacationIntegrationInlineAutoData("1234")]
+    public async Task Http_BadRequest_A_Vacation_Test(string vacationNameExpected)
     {
         CreateVacationDto createVacationDto = new(vacationNameExpected);
-        await MakeHttpPostRequest<VacationCreatedDto>(createVacationDto, statusCodeExpected);
+        await MakeHttpPostRequest<VacationCreatedDto>(createVacationDto, HttpStatusCode.BadRequest);
     }
 }
