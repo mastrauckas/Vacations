@@ -1,13 +1,4 @@
-﻿using System.Net;
-using System.Text;
-using System.Text.Json;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-
-namespace Maa.Vacations.Tests;
+﻿namespace Maa.Vacations.Tests;
 
 public class VacationRouteTest : WebApplicationFactory<Program>
 {
