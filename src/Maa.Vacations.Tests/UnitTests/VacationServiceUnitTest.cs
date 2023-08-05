@@ -1,10 +1,8 @@
 namespace Maa.Vacations.Tests.UnitTests;
 
-public class VacationServiceTest
+public class VacationServiceUnitTest
 {
-    private const string _vacationName = "Michael Vacation";
-
-    [Theory, VacationAutoData()]
+    [Theory, VacationUnitTestAutoData("Michaels Vacation")]
     public async Task MakeSureVacationIsSaved3Test
         (
             [Frozen] Mock<IVacationRepository> routingRepositoryMock, //This must be before VacationService
@@ -16,11 +14,5 @@ public class VacationServiceTest
         routingRepositoryMock.Verify(rr => rr.AddAsync(It.IsAny<Vacation>()), Times.Once());
         routingRepositoryMock.Verify(rr => rr.SaveChangesAsync(), Times.Once());
         Assert.Equal(createVacationDto.Name, vactionCreatedDto.Name);
-    }
-
-    [Theory, VacationAutoData(_vacationName)]
-    public void CheckNameIsCorrectTest(Vacation vacation)
-    {
-        Assert.Equal(_vacationName, vacation.Name);
     }
 }

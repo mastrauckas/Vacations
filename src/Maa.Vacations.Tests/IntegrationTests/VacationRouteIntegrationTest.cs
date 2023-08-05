@@ -1,6 +1,6 @@
 ﻿namespace Maa.Vacations.Tests.IntegrationTests;
 
-public class VacationRouteTest : BaseIntegrationTest<Program>
+public class VacationRouteIntegrationTest : BaseIntegrationTest<Program>
 {
     [Fact]
     public async Task Make_Http_Get_Request_Test()
