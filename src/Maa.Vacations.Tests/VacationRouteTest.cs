@@ -1,15 +1,37 @@
 ﻿using System.Net;
 using System.Text;
 using System.Text.Json;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Maa.Vacations.Tests;
 
-public class VacationRouteTest
+public class VacationRouteTest : WebApplicationFactory<Program>
 {
-    [Theory, VacationIntegrationInlineAutoData]
-    public async Task Make_Http_Get_Request_Test(HttpClient client)
+    private readonly HttpClient _client;
+
+    public VacationRouteTest()
     {
-        await MakeHttpRequest(client);
+        var databaseName = $"Vacations_{Guid.NewGuid()}";
+        var application = new WebApplicationFactory<Program>()
+            .WithWebHostBuilder(builder =>
+            {
+                builder.ConfigureTestServices(services =>
+                    {
+                        services.RemoveAll<DbContextOptions<VacationsContext>>();
+                        services.AddDbContext<VacationsContext>(options => options.UseInMemoryDatabase(databaseName));
+                    });
+            });
+        _client = application.CreateClient();
+    }
+
+    [Fact]
+    public async Task Make_Http_Get_Request_Test()
+    {
+        await MakeHttpRequest(_client);
     }
 
     [Theory]
@@ -20,17 +42,15 @@ public class VacationRouteTest
     [VacationIntegrationInlineAutoData("123", HttpStatusCode.BadRequest)]
     [VacationIntegrationInlineAutoData("1234", HttpStatusCode.BadRequest)]
     [VacationIntegrationInlineAutoData("12345", HttpStatusCode.Created)]
-    public async Task Create_A_Vacation_Test(string vactionName, HttpStatusCode statusCode, HttpClient client)
+    public async Task Create_A_Vacation_Test(string vactionName, HttpStatusCode statusCode)
     {
         CreateVacationDto createVacationDto = new(vactionName);
-        var vacationCreatedDto = await MakeHttpRequest<VacationCreatedDto>(client, expectedHttpStatusCode: statusCode, method: HttpMethod.Post, body: createVacationDto);
+        var vacationCreatedDto = await MakeHttpRequest<VacationCreatedDto>(_client, expectedHttpStatusCode: statusCode, method: HttpMethod.Post, body: createVacationDto);
         if (statusCode == HttpStatusCode.Created)
         {
             Assert.Equal(createVacationDto.Name, vacationCreatedDto.Name);
-            Assert.True(vacationCreatedDto.Id > 0);
+            Assert.Equal(1, vacationCreatedDto.Id);
         }
-
-        client?.Dispose();
     }
 
     private async Task MakeHttpRequest(HttpClient client, HttpStatusCode expectedHttpStatusCode = HttpStatusCode.OK, HttpMethod method = null, object body = null, string contentType = "application/json")
@@ -46,8 +66,6 @@ public class VacationRouteTest
 
         var response = await client.SendAsync(request);
         Assert.Equal(response.StatusCode, expectedHttpStatusCode);
-
-        client?.Dispose();
     }
 
     private async Task<TResponseObject> MakeHttpRequest<TResponseObject>(HttpClient client, HttpStatusCode expectedHttpStatusCode = HttpStatusCode.OK, HttpMethod method = null, object body = null, string contentType = "application/json")
