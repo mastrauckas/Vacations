@@ -22,8 +22,8 @@ public abstract class BaseIntegrationTest<TProgram> : WebApplicationFactory<TPro
     protected async Task<TResponseObject> MakeHttpPostRequest<TResponseObject>
     (
         object body,
-        string contentType = "application/json",
-        HttpStatusCode? expectedHttpStatusCode = null
+        HttpStatusCode? expectedHttpStatusCode = null,
+        string contentType = "application/json"
     )
     {
         ArgumentNullException.ThrowIfNull(body);
@@ -63,35 +63,37 @@ public abstract class BaseIntegrationTest<TProgram> : WebApplicationFactory<TPro
         Assert.Equal(response.StatusCode, expectedHttpStatusCode);
     }
 
-    protected async Task MakeHttpRequest(HttpStatusCode expectedHttpStatusCode = HttpStatusCode.OK, HttpMethod method = null, object body = null, string contentType = "application/json")
+    protected async Task MakeHttpGetRequest(HttpStatusCode? expectedHttpStatusCode = null)
     {
         var requestUri = $"http://localhost/vacations";
-        using var request = new HttpRequestMessage(method ?? HttpMethod.Get, requestUri);
-        if (body is not null)
-        {
-            var payload = JsonSerializer.Serialize(body);
-            request.Content = new StringContent(payload, Encoding.UTF8, contentType);
-        }
-
+        using var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
         var response = await _client.SendAsync(request);
-        Assert.Equal(response.StatusCode, expectedHttpStatusCode);
+        if (expectedHttpStatusCode is not null)
+        {
+            Assert.Equal(response.StatusCode, expectedHttpStatusCode);
+        }
+        else
+        {
+            Assert.True(response.IsSuccessStatusCode);
+        }
     }
 
-    protected async Task<TResponseObject> MakeHttpRequest<TResponseObject>(HttpStatusCode expectedHttpStatusCode = HttpStatusCode.OK, HttpMethod method = null, object body = null, string contentType = "application/json")
+    protected async Task<TResponseObject> MakeHttpGetRequest<TResponseObject>(HttpStatusCode? expectedHttpStatusCode = null)
     {
         var requestUri = $"http://localhost/vacations";
-        using var request = new HttpRequestMessage(method ?? HttpMethod.Get, requestUri);
-        if (body is not null)
+        using var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
+        var response = await _client.SendAsync(request);
+
+        if (expectedHttpStatusCode is not null)
         {
-            var payload = JsonSerializer.Serialize(body);
-            request.Content = new StringContent(payload, Encoding.UTF8, contentType);
+            Assert.Equal(response.StatusCode, expectedHttpStatusCode);
+        }
+        else
+        {
+            Assert.True(response.IsSuccessStatusCode);
         }
 
-        var response = await _client.SendAsync(request);
-        Assert.Equal(response.StatusCode, expectedHttpStatusCode);
-
         var content = await response.Content.ReadAsStringAsync();
-
         var options = new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
