@@ -55,6 +55,8 @@ public abstract class BaseIntegrationTest<TProgram> : WebApplicationFactory<TPro
         var options = new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
+            PropertyNameCaseInsensitive = true
         };
 
         var deserializedObject = JsonSerializer.Deserialize<TResponseObject>(content, options);
