@@ -9,4 +9,19 @@ public class VacationRouteHttpDeleteIntegrationTest : BaseIntegrationTest<Progra
         var vacationCreatedDto = await MakeHttpPostRequest<VacationCreatedDto>(createVacationDto);
         await MakeHttpDeleteRequest(vacationCreatedDto.Id);
     }
+
+    [Fact]
+    public async Task Check_Delete_Id_Does_Not_Exists_Test()
+    {
+        await MakeHttpDeleteRequest(100, expectedHttpStatusCode: HttpStatusCode.NotFound);
+    }
+
+    [Theory]
+    [VacationIntegrationAutoData]
+    public async Task Check_If_Vacation_Multiple_Deletes_Test(CreateVacationDto createVacationDto)
+    {
+        var vacationCreatedDto = await MakeHttpPostRequest<VacationCreatedDto>(createVacationDto);
+        await MakeHttpDeleteRequest(vacationCreatedDto.Id);
+        await MakeHttpDeleteRequest(vacationCreatedDto.Id, expectedHttpStatusCode: HttpStatusCode.NotFound);
+    }
 }
