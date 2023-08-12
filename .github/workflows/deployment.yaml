@@ -38,6 +38,7 @@ jobs:
         with:
           app-name: ${{env.AZURE_WEBAPP_NAME}}
           slot-name: "production"
+          path: ./src/Maa.Vacations.WebApi
           publish-profile: ${{secrets.AZURE_APP_SERVICES_WEB_APP}}
           package: ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/app
         #   package: .
