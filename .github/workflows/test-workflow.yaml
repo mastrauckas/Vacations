@@ -26,10 +26,8 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Change to project location
-        run: cd ./src/Maa.Vacations/Tests
-
-      - name: Install dependencies
+      - name: Install Dependencies
+        working-directory: ./src/Maa.Vacations/Tests
         run: dotnet restore
 
       - name: Build
