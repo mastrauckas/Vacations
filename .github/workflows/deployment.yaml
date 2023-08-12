@@ -26,14 +26,14 @@ jobs:
           include-prerelease: false
 
       - name: Build with dotnet
-        working-directory: ./src
+        working-directory: ./src/Maa.Vacations.WebApi
         run: dotnet build --configuration Release
 
       - name: dotnet publish
-        working-directory: ./src
+        working-directory: ./src/Maa.Vacations.WebApi
         run: dotnet publish --no-restore -c Release -o ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/myapp
 
-      - name:
+      - name: depoyment
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${ { env.Vacations } }
