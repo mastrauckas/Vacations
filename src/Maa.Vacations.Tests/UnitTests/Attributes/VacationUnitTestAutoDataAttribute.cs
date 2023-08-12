@@ -1,4 +1,6 @@
-﻿namespace Maa.Vacations.Tests.UnitTests.Attributes;
+﻿using AutoFixture.AutoNSubstitute;
+
+namespace Maa.Vacations.Tests.UnitTests.Attributes;
 
 internal class VacationUnitTestAutoDataAttribute : AutoDataAttribute
 {
@@ -22,7 +24,7 @@ internal class VacationUnitTestAutoDataAttribute : AutoDataAttribute
         var configuration = new MapperConfiguration(cfg => cfg.AddProfile<ProfileVacation>());
         var mapper = configuration.CreateMapper();
         fixture.Inject(mapper);
-        fixture.Customize(new AutoMoqCustomization());
+        fixture.Customize(new AutoNSubstituteCustomization());
         return fixture;
     }
 }

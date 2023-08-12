@@ -1,3 +1,5 @@
+using NSubstitute;
+
 namespace Maa.Vacations.Tests.UnitTests;
 
 public class VacationServiceUnitTest
@@ -5,14 +7,14 @@ public class VacationServiceUnitTest
     [Theory, VacationUnitTestAutoData("Michaels Vacation")]
     public async Task MakeSureVacationIsSaved3Test
         (
-            [Frozen] Mock<IVacationRepository> routingRepositoryMock, //This must be before VacationService
+            [Frozen] IVacationRepository routingRepositoryMock, //This must be before VacationService
             VacationService vacationService,
             CreateVacationDto createVacationDto
         )
     {
         var vactionCreatedDto = await vacationService.AddVacationAsync(createVacationDto);
-        routingRepositoryMock.Verify(rr => rr.AddAsync(It.IsAny<Vacation>()), Times.Once());
-        routingRepositoryMock.Verify(rr => rr.SaveChangesAsync(), Times.Once());
+        await routingRepositoryMock.Received(1).AddAsync(Arg.Any<Vacation>());
+        await routingRepositoryMock.Received(1).SaveChangesAsync();
         Assert.Equal(createVacationDto.Name, vactionCreatedDto.Name);
     }
 }
