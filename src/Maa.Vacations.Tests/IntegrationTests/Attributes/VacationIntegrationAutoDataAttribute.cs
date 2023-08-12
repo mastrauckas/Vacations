@@ -9,8 +9,7 @@ public class VacationIntegrationAutoDataAttribute : AutoDataAttribute
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile<ProfileVacation>());
             var mapper = configuration.CreateMapper();
             fixture.Inject(mapper);
-            //fixture.Inject(client);
-            fixture.Customize(new AutoMoqCustomization());
+            fixture.Customize(new AutoNSubstituteCustomization());
             return fixture;
         })
     {
