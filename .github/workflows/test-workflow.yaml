@@ -34,6 +34,6 @@ jobs:
         run: dotnet build Vacations.sln --configuration Release --no-restore
 
       - name: Test
-        working-directory: ./src/Maa.Vacations.Tests
+        working-directory: ./src
         # run: dotnet test --no-restore --verbosity normal --no-build
         run: dotnet test --no-restore --verbosity minimal --no-build
