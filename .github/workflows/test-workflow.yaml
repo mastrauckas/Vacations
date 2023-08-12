@@ -25,12 +25,9 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
-     
-      - name: location check
-        run: ls -la
 
       - name: Install Dependencies
-        working-directory: /src/Maa.Vacations/Tests
+        working-directory: ./src/Maa.Vacations.Tests
         run: dotnet restore
 
       - name: Build
