@@ -31,7 +31,7 @@ jobs:
 
       - name: dotnet publish
         working-directory: ./src/Maa.Vacations.WebApi
-        run: dotnet publish --no-restore -c Release -o ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/myapp
+        run: dotnet publish --no-restore -c Release -o ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/app
 
       - name: depoyment
         uses: azure/webapps-deploy@v2
@@ -39,5 +39,5 @@ jobs:
           app-name: ${{env.AZURE_WEBAPP_NAME}}
           slot-name: "production"
           publish-profile: ${{secrets.AZURE_APP_SERVICES_WEB_APP}}
-          package: ${{env.AZURE_WEBAPP_PACKAGE_PATH}}
+          package: ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/app
         #   package: .
