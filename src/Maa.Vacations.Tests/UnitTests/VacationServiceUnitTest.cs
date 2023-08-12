@@ -13,6 +13,6 @@ public class VacationServiceUnitTest
         var vactionCreatedDto = await vacationService.AddVacationAsync(createVacationDto);
         routingRepositoryMock.Verify(rr => rr.AddAsync(It.IsAny<Vacation>()), Times.Once());
         routingRepositoryMock.Verify(rr => rr.SaveChangesAsync(), Times.Once());
-        Assert.Equal(createVacationDto.Name + 2, vactionCreatedDto.Name);
+        Assert.Equal(createVacationDto.Name, vactionCreatedDto.Name);
     }
 }
