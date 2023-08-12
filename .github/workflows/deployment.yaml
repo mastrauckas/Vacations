@@ -15,6 +15,7 @@ jobs:
     env:
       AZURE_WEBAPP_PACKAGE_PATH: .
       AZURE_WEBAPP_NAME: Vacations
+      WORKING_PATH: ./src/Maa.Vacations.WebApi
 
     steps:
       - uses: actions/checkout@v2
@@ -26,11 +27,11 @@ jobs:
           include-prerelease: false
 
       - name: Build with dotnet
-        working-directory: ./src/Maa.Vacations.WebApi
+        working-directory: ${{env.WORKING_PATH}}
         run: dotnet build --configuration Release
 
       - name: dotnet publish
-        working-directory: ./src/Maa.Vacations.WebApi
+        working-directory: ${{env.WORKING_PATH}}
         run: dotnet publish --no-restore -c Release -o ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/app
 
       - name: depoyment
@@ -40,5 +41,5 @@ jobs:
           slot-name: "production"
           path: ${{github.workspace}}/src/Maa.Vacations.WebApi
           publish-profile: ${{secrets.AZURE_APP_SERVICES_WEB_APP}}
-          package: ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/app
+          package: ${{env.WORKING_PATH}}//app
         #   package: .
