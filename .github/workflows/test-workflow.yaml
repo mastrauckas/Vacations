@@ -31,7 +31,9 @@ jobs:
         run: dotnet restore
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        working-directory: ./src
+        run: dotnet build Vacations.sln --configuration Release --no-restore
 
       - name: Test
+        working-directory: ./src/Maa.Vacations.Tests
         run: dotnet test --no-restore --verbosity normal
