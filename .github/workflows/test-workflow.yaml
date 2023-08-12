@@ -1,7 +1,6 @@
 name: Running build and test
 
 on:
-  push:
   pull_request:
     branches: [master]
     paths:
@@ -36,4 +35,5 @@ jobs:
 
       - name: Test
         working-directory: ./src/Maa.Vacations.Tests
-        run: dotnet test --no-restore --verbosity normal
+        # run: dotnet test --no-restore --verbosity normal --no-build
+        run: dotnet test --no-restore --verbosity minimal --no-build
