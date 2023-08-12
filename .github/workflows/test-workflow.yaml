@@ -35,5 +35,4 @@ jobs:
 
       - name: Test
         working-directory: ./src
-        # run: dotnet test --no-restore --verbosity normal --no-build
         run: dotnet test Vacations.sln --no-restore --configuration Release --verbosity minimal --no-build
