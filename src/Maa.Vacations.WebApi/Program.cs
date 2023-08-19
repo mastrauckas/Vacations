@@ -9,5 +9,4 @@ app.UseHttpsRedirection();
 app.ConfigureApi();
 app.Run();
 
-
 public partial class Program { }
