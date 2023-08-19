@@ -42,4 +42,3 @@ jobs:
           path: ${{github.workspace}}/src/Maa.Vacations.WebApi
           publish-profile: ${{secrets.AZURE_APP_SERVICES_WEB_APP}}
           package: ${{env.WORKING_PATH}}//app
-        #   package: .
