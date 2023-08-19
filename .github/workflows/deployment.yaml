@@ -16,6 +16,7 @@ jobs:
       AZURE_WEBAPP_PACKAGE_PATH: .
       AZURE_WEBAPP_NAME: Vacations
       WORKING_PATH: ./src/Maa.Vacations.WebApi
+      APP_PATH: ${{env.WORKING_PATH}}/app
 
     steps:
       - uses: actions/checkout@v2
@@ -32,7 +33,15 @@ jobs:
 
       - name: dotnet publish
         working-directory: ${{env.WORKING_PATH}}
-        run: dotnet publish --no-restore -c Release -o ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/app
+        run: dotnet publish --no-restore -c Release -o ${{env.APP_PATH}}
+
+      - name: run migrations
+        working-directory: ${{env.APP_PATH}}
+        run: dotnet tool install --global dotnet-ef
+
+      - name: run migrations
+        working-directory: ${{env.APP_PATH}}
+        run: dotnet ef database update
 
       - name: depoyment
         uses: azure/webapps-deploy@v2
@@ -41,4 +50,4 @@ jobs:
           slot-name: "production"
           # path: ${{github.workspace}}
           publish-profile: ${{secrets.AZURE_APP_SERVICES_WEB_APP}}
-          package: ${{env.WORKING_PATH}}/app
+          package: ${{env.APP_PATH}}
