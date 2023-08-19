@@ -41,7 +41,7 @@ jobs:
 
       - name: run migrations
         working-directory: ${{env.APP_PATH}}
-        run: dotnet ef database update
+        run: dotnet ef database update --startup-project Maa.Vacations.WebApi --project Maa.Vacations.Entities
 
       # - name: depoyment
       #   uses: azure/webapps-deploy@v2
