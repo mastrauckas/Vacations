@@ -43,15 +43,15 @@ jobs:
         working-directory: ${{env.WORKING_PATH}}
         run: dotnet ef database update
 
-      - name: run migrations
+      - name: Moving migrations
         working-directory: ${{env.WORKING_PATH}}
         run: mv Vacations.sqllitedb ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/app/
 
-      # - name: depoyment
-      #   uses: azure/webapps-deploy@v2
-      #   with:
-      #     app-name: ${{env.AZURE_WEBAPP_NAME}}
-      #     slot-name: "production"
-      #     # path: ${{github.workspace}}
-      #     publish-profile: ${{secrets.AZURE_APP_SERVICES_WEB_APP}}
-      #     package: ${{env.APP_PATH}}
+      - name: depoyment
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{env.AZURE_WEBAPP_NAME}}
+          slot-name: "production"
+          # path: ${{github.workspace}}
+          publish-profile: ${{secrets.AZURE_APP_SERVICES_WEB_APP}}
+          package: ${{env.APP_PATH}}
