@@ -38,7 +38,7 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{env.AZURE_WEBAPP_NAME}}
-          slot-name: "production
+          slot-name: "production"
           path: ${{github.workspace}}
           publish-profile: ${{secrets.AZURE_APP_SERVICES_WEB_APP}}
           package: ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/app
