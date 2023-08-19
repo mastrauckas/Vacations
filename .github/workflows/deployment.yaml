@@ -39,9 +39,9 @@ jobs:
         working-directory: ${{env.WORKING_PATH}}
         run: dotnet tool install --global dotnet-ef
 
-      # - name: run migrations
-      #   working-directory: ${{env.APP_PATH}}
-      #   run: dotnet ef database update
+      - name: run migrations
+        working-directory: ${{env.APP_PATH}}
+        run: dotnet ef database update
 
       # - name: depoyment
       #   uses: azure/webapps-deploy@v2
