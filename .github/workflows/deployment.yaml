@@ -6,7 +6,7 @@ name: Deploy to Azure App Services
 on:
   push:
     branches:
-      - add-github-action-deployment
+      - master
 
 jobs:
   build:
