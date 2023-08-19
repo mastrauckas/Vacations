@@ -41,4 +41,4 @@ jobs:
           slot-name: "production"
           path: ${{github.workspace}}
           publish-profile: ${{secrets.AZURE_APP_SERVICES_WEB_APP}}
-          package: ${{env.WORKING_PATH}}//app
+          package: ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/app
