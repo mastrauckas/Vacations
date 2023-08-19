@@ -12,20 +12,20 @@ public static class ConfigureRoutingExtension
 
     private static void ConfigureRoutes(WebApplication app)
     {
-        app.MapGet("/vacations", async Task<Ok<IEnumerable<CurrentVacationDto>>> (IVacationService routingService) =>
+        app.MapGet("/", async Task<Ok<IEnumerable<CurrentVacationDto>>> (IVacationService routingService) =>
         {
             var routes = await routingService.GetAllVacationsAsync();
             return TypedResults.Ok(routes);
         });
 
-        app.MapGet("/vacations/{id:int}", async Task<Results<NotFound, Ok<CurrentVacationDto>>> (IVacationService routingService, int id) =>
+        app.MapGet("/{id:int}", async Task<Results<NotFound, Ok<CurrentVacationDto>>> (IVacationService routingService, int id) =>
         {
             var route = await routingService.GetVacationByIdAsync(id);
             return route is null ? TypedResults.NotFound() : TypedResults.Ok(route);
         })
         .WithName("GetVacation");
 
-        app.MapPost("/vacations", async Task<CreatedAtRoute<VacationCreatedDto>> (IVacationService routingService, CreateVacationDto route) =>
+        app.MapPost("/", async Task<CreatedAtRoute<VacationCreatedDto>> (IVacationService routingService, CreateVacationDto route) =>
         {
             var createdRoute = await routingService.AddVacationAsync(route);
             return TypedResults.CreatedAtRoute(createdRoute, "GetVacation", new { id = createdRoute.Id });
@@ -39,7 +39,7 @@ public static class ConfigureRoutingExtension
         })
         .AddEndpointFilter<ValidateAnnotationsFilter>();
 
-        app.MapDelete("/vacations/{id:int}", async Task<Results<NotFound, NoContent>> (IVacationService routingService, int id) =>
+        app.MapDelete("/{id:int}", async Task<Results<NotFound, NoContent>> (IVacationService routingService, int id) =>
         {
             var deletedRouteDto = await routingService.DeleteVacationAsync(id);
             return deletedRouteDto is null ? TypedResults.NotFound() : TypedResults.NoContent();
