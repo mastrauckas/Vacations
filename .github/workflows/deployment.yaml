@@ -16,7 +16,7 @@ jobs:
       AZURE_WEBAPP_PACKAGE_PATH: .
       AZURE_WEBAPP_NAME: Vacations
       WORKING_PATH: ./src/Maa.Vacations.WebApi
-      APP_PATH: ${{env.WORKING_PATH}}/app
+      APP_PATH: ./src/Maa.Vacations.WebApi/app
 
     steps:
       - uses: actions/checkout@v2
