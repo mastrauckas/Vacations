@@ -28,26 +28,26 @@ jobs:
           include-prerelease: false
 
       - name: Build with dotnet
-        working-directory: ${{env.WORKING_PATH}}
+        # working-directory: ${{env.WORKING_PATH}}
         run: dotnet build --configuration Release
 
-      - name: dotnet publish
-        working-directory: ${{env.WORKING_PATH}}
-        run: dotnet publish --no-restore -c Release -o ${{env.APP_PATH}}
+      # - name: dotnet publish
+      #   # working-directory: ${{env.WORKING_PATH}}
+      #   run: dotnet publish --no-restore -c Release -o ${{env.APP_PATH}}
 
-      - name: run migrations
-        working-directory: ${{env.APP_PATH}}
-        run: dotnet tool install --global dotnet-ef
+      # - name: Install EF Migrations
+      #   working-directory: ${{env.APP_PATH}}
+      #   run: dotnet tool install --global dotnet-ef
 
-      - name: run migrations
-        working-directory: ${{env.APP_PATH}}
-        run: dotnet ef database update
+      # - name: run migrations
+      #   working-directory: ${{env.APP_PATH}}
+      #   run: dotnet ef database update
 
-      - name: depoyment
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: ${{env.AZURE_WEBAPP_NAME}}
-          slot-name: "production"
-          # path: ${{github.workspace}}
-          publish-profile: ${{secrets.AZURE_APP_SERVICES_WEB_APP}}
-          package: ${{env.APP_PATH}}
+      # - name: depoyment
+      #   uses: azure/webapps-deploy@v2
+      #   with:
+      #     app-name: ${{env.AZURE_WEBAPP_NAME}}
+      #     slot-name: "production"
+      #     # path: ${{github.workspace}}
+      #     publish-profile: ${{secrets.AZURE_APP_SERVICES_WEB_APP}}
+      #     package: ${{env.APP_PATH}}
