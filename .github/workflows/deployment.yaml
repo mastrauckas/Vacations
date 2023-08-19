@@ -32,8 +32,7 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: dotnet publish
-        working-directory: ${{env.WORKING_PATH}}
-        run: dotnet publish --no-restore -c Release -o
+        run: dotnet publish --no-restore -c Release -o ${{env.WORKING_PATH}}
 
       # - name: Install EF Migrations
       #   working-directory: ${{env.APP_PATH}}
