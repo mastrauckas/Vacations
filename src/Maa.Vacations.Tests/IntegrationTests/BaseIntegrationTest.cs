@@ -35,7 +35,7 @@ public abstract class BaseIntegrationTest<TProgram> : WebApplicationFactory<TPro
     {
         ArgumentNullException.ThrowIfNull(body);
         ArgumentException.ThrowIfNullOrEmpty(contentType);
-        var requestUri = $"http://localhost/vacations";
+        var requestUri = $"http://localhost/";
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUri);
         var payload = JsonSerializer.Serialize(body);
         request.Content = new StringContent(payload, Encoding.UTF8, contentType);
@@ -66,7 +66,7 @@ public abstract class BaseIntegrationTest<TProgram> : WebApplicationFactory<TPro
 
     protected async Task MakeHttpDeleteRequest(int id, HttpStatusCode expectedHttpStatusCode = HttpStatusCode.NoContent)
     {
-        var requestUri = $"http://localhost/vacations/{id}";
+        var requestUri = $"http://localhost/{id}";
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUri);
         var response = await _client.SendAsync(request);
         Assert.Equal(response.StatusCode, expectedHttpStatusCode);
@@ -74,7 +74,7 @@ public abstract class BaseIntegrationTest<TProgram> : WebApplicationFactory<TPro
 
     protected async Task MakeHttpGetRequest(HttpStatusCode? expectedHttpStatusCode = null)
     {
-        var requestUri = $"http://localhost/vacations";
+        var requestUri = $"http://localhost";
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
         var response = await _client.SendAsync(request);
         if (expectedHttpStatusCode is not null)
@@ -89,7 +89,7 @@ public abstract class BaseIntegrationTest<TProgram> : WebApplicationFactory<TPro
 
     protected async Task<TResponseObject> MakeHttpGetRequest<TResponseObject>(HttpStatusCode? expectedHttpStatusCode = null)
     {
-        var requestUri = $"http://localhost/vacations";
+        var requestUri = $"http://localhost";
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
         var response = await _client.SendAsync(request);
 
