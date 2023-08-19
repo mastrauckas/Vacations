@@ -39,9 +39,13 @@ jobs:
         working-directory: ${{env.WORKING_PATH}}
         run: dotnet tool install --global dotnet-ef
 
+      - name: Run Migrations
+        working-directory: ${{env.WORKING_PATH}}
+        run: dotnet ef database update
+
       - name: run migrations
-        working-directory: ${{env.APP_PATH}}
-        run: dotnet ef database update --startup-project Maa.Vacations.WebApi --project Maa.Vacations.Entities
+        working-directory: ${{env.WORKING_PATH}}
+        run: mv Vacations.sqllitedb ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/app/
 
       # - name: depoyment
       #   uses: azure/webapps-deploy@v2
