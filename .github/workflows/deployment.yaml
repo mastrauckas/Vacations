@@ -27,6 +27,10 @@ jobs:
           dotnet-version: "7.0.x"
           include-prerelease: false
 
+       - name: Build with dotnet
+         # working-directory: ${{env.WORKING_PATH}}
+         run: pwd
+
       - name: Build with dotnet
         # working-directory: ${{env.WORKING_PATH}}
         run: dotnet build --configuration Release
