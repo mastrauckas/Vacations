@@ -42,9 +42,17 @@ jobs:
 
       - name: Run Migrations
         working-directory: ${{env.WORKING_PATH}}
-        run: |
-          dotnet ef database update
-          mv Vacations.sqllitedb ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/app/
+        run: dotnet ef database update
+
+      - name: Move Migrations Database
+        working-directory: ${{env.WORKING_PATH}}
+        run: mv Vacations.sqllitedb ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/app/
+
+      # - name: Run Migrations
+      #   working-directory: ${{env.WORKING_PATH}}
+      #   run: |
+      #     dotnet ef database update
+      #     mv Vacations.sqllitedb ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/app/
 
       - name: Deployment
         uses: azure/webapps-deploy@v2
