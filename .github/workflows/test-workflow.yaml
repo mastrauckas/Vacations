@@ -3,9 +3,6 @@ name: Running build and test
 on:
   pull_request:
     branches: [master]
-    paths:
-      - "**.cs"
-      - "**.csproj"
 
 env:
   DOTNET_VERSION: "7.0.x"
