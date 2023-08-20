@@ -32,6 +32,6 @@ public class VacationRouteHttpPostIntegrationTest : BaseIntegrationTest<Program>
         Assert.Equal(expectedStatus, errorResponse.Status);
         Assert.Equal(expectedTitle, errorResponse.Title);
         Assert.Single(errorResponse.Errors.Name);
-        Assert.Equal(expectedError, errorResponse.Errors.Name.Single());
+        Assert.Equal(expectedError + 2, errorResponse.Errors.Name.Single());
     }
 }
