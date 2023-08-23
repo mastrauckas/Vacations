@@ -17,6 +17,7 @@ jobs:
       AZURE_WEBAPP_NAME: Vacations
       WORKING_PATH: ./src/Maa.Vacations.WebApi
       APP_PATH: ./src/Maa.Vacations.WebApi/app
+      SLOT_NAME: "production"
 
     steps:
       - uses: actions/checkout@v2
@@ -49,6 +50,6 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{env.AZURE_WEBAPP_NAME}}
-          slot-name: "production"
+          slot-name: ${{env.SLOT_NAME}}
           publish-profile: ${{secrets.AZURE_APP_SERVICES_WEB_APP}}
           package: ${{env.APP_PATH}}
