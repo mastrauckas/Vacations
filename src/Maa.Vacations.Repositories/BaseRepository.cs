@@ -6,10 +6,10 @@ public abstract class BaseRepository<TKeyType, TEntity, TDbContext> : IBaseRepos
                                                                     where TDbContext : DbContext
 
 {
-    protected TDbContext _context;
-    protected DbSet<TEntity> _dbSet;
+    private readonly TDbContext _context;
+    protected readonly DbSet<TEntity> _dbSet;
 
-    public BaseRepository(TDbContext context)
+    protected BaseRepository(TDbContext context)
     {
         _context = context;
         _dbSet = context.Set<TEntity>();

@@ -23,7 +23,7 @@ public class VacationsContext : DbContext
 
     private void UpdateFields()
     {
-        foreach (var entity in ChangeTracker.Entries().Where(e => e.State == EntityState.Added || e.State == EntityState.Modified))
+        foreach (var entity in ChangeTracker.Entries().Where(e => e.State is EntityState.Added or EntityState.Modified))
         {
             if (entity.State == EntityState.Added)
             {
