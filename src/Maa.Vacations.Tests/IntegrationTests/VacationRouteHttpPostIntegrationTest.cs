@@ -10,7 +10,7 @@ public class VacationRouteHttpPostIntegrationTest : BaseIntegrationTest<Program>
     public async Task Http_Create_A_Vacation_Test(string vacationNameExpected, int? expectedId)
     {
         CreateVacationDto createVacationDto = new(vacationNameExpected);
-        VacationCreatedDto vacationCreatedDto =
+        var vacationCreatedDto =
             await MakeHttpPostRequest<VacationCreatedDto>(createVacationDto, HttpStatusCode.Created);
         Assert.Equal(vacationNameExpected, vacationCreatedDto.Name);
         Assert.Equal(expectedId, vacationCreatedDto.Id);
@@ -29,9 +29,9 @@ public class VacationRouteHttpPostIntegrationTest : BaseIntegrationTest<Program>
     public async Task Http_BadRequest_Error_Vacation_Test(string vacationNameExpected, string expectedError)
     {
         CreateVacationDto createVacationDto = new(vacationNameExpected);
-        string            expectedTitle     = "One or more validation errors occurred.";
-        int               expectedStatus    = 400;
-        ErrorResponse errorResponse =
+        var               expectedTitle     = "One or more validation errors occurred.";
+        var               expectedStatus    = 400;
+        var errorResponse =
             await MakeHttpPostRequest<ErrorResponse>(createVacationDto, HttpStatusCode.BadRequest);
 
         Assert.NotNull(errorResponse);

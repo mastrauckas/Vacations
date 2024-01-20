@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
-
-namespace Maa.Vacations.Entities;
+﻿namespace Maa.Vacations.Entities;
 
 public class VacationsContext : DbContext
 {
@@ -28,8 +26,8 @@ public class VacationsContext : DbContext
 
     private void UpdateFields()
     {
-        foreach (EntityEntry entity in ChangeTracker.Entries()
-                                                    .Where(e => e.State is EntityState.Added or EntityState.Modified))
+        foreach (var entity in ChangeTracker.Entries()
+                                            .Where(e => e.State is EntityState.Added or EntityState.Modified))
         {
             if (entity.State == EntityState.Added)
             {

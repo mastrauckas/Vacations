@@ -23,7 +23,7 @@ public class VacationService : IVacationService
             throw new ArgumentNullException(nameof(createVacationDto.Name));
         }
 
-        Vacation? vacation = _mapper.Map<Vacation>(createVacationDto);
+        var vacation = _mapper.Map<Vacation>(createVacationDto);
         ArgumentException.ThrowIfNullOrEmpty(vacation.Name);
 
         await _vacationRepository.AddAsync(vacation);
@@ -44,7 +44,7 @@ public class VacationService : IVacationService
             throw new ArgumentNullException(nameof(updateVacationDto.Name));
         }
 
-        Vacation? vacation = await _vacationRepository.GetByIdAsync(id);
+        var vacation = await _vacationRepository.GetByIdAsync(id);
 
         VacationUpdatedDto? vacationUpdatedDto = null;
 
@@ -62,7 +62,7 @@ public class VacationService : IVacationService
 
     public async Task<DeletedVacationDto?> DeleteVacationAsync(int id)
     {
-        Vacation?           vacation           = await _vacationRepository.GetByIdAsync(id);
+        var                 vacation           = await _vacationRepository.GetByIdAsync(id);
         DeletedVacationDto? deletedVacationDto = null;
         if (vacation is null || vacation.DeletedDateTime is not null)
         {
@@ -85,7 +85,7 @@ public class VacationService : IVacationService
 
     public async Task<CurrentVacationDto?> GetVacationByIdAsync(int id)
     {
-        Vacation? vacation = await _vacationRepository.GetByIdAsync(id);
+        var vacation = await _vacationRepository.GetByIdAsync(id);
 
         return vacation is not null && vacation.DeletedDateTime is null
             ? _mapper.Map<CurrentVacationDto?>(vacation)

@@ -8,18 +8,18 @@ public class ValidateAnnotationsFilter : IEndpointFilter
     {
         if (context.HttpContext.Request.Method == "POST")
         {
-            CreateVacationDto createVacationDto = context.GetArgument<CreateVacationDto>(1);
+            var createVacationDto = context.GetArgument<CreateVacationDto>(1);
 
-            if (!MiniValidator.TryValidate(createVacationDto, out IDictionary<string, string[]> validationErrors))
+            if (!MiniValidator.TryValidate(createVacationDto, out var validationErrors))
             {
                 return TypedResults.ValidationProblem(validationErrors);
             }
         }
         else if (context.HttpContext.Request.Method == "PUT")
         {
-            UpdateVacationDto updateVacationDto = context.GetArgument<UpdateVacationDto>(2);
+            var updateVacationDto = context.GetArgument<UpdateVacationDto>(2);
 
-            if (!MiniValidator.TryValidate(updateVacationDto, out IDictionary<string, string[]> validationErrors))
+            if (!MiniValidator.TryValidate(updateVacationDto, out var validationErrors))
             {
                 return TypedResults.ValidationProblem(validationErrors);
             }

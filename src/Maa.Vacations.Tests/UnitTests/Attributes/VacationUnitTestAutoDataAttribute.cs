@@ -9,7 +9,7 @@ internal class VacationUnitTestAutoDataAttribute : AutoDataAttribute
     public VacationUnitTestAutoDataAttribute(string vacationName) : base(
                                                                          () =>
                                                                          {
-                                                                             Fixture fixture = CreateFixture();
+                                                                             var fixture = CreateFixture();
                                                                              fixture.Customize<Vacation>(c =>
                                                                                           c.With(r => r.Name,
                                                                                                    vacationName));
@@ -23,7 +23,7 @@ internal class VacationUnitTestAutoDataAttribute : AutoDataAttribute
     {
         Fixture             fixture       = new();
         MapperConfiguration configuration = new(cfg => cfg.AddProfile<ProfileVacation>());
-        IMapper             mapper        = configuration.CreateMapper();
+        var                 mapper        = configuration.CreateMapper();
         fixture.Inject(mapper);
         fixture.Customize(new AutoNSubstituteCustomization());
 

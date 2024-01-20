@@ -13,7 +13,7 @@ public class VacationServiceUnitTest
         CreateVacationDto            createVacationDto
     )
     {
-        VacationCreatedDto vactionCreatedDto = await vacationService.AddVacationAsync(createVacationDto);
+        var vactionCreatedDto = await vacationService.AddVacationAsync(createVacationDto);
         await routingRepositoryMock.Received(1).AddAsync(Arg.Any<Vacation>());
         await routingRepositoryMock.Received(1).SaveChangesAsync();
         Assert.Equal(createVacationDto.Name, vactionCreatedDto.Name);
