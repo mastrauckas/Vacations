@@ -1,10 +1,11 @@
 ﻿namespace Maa.Vacations.Tests.IntegrationTests;
 
-public abstract class BaseIntegrationTest<TProgram> : WebApplicationFactory<TProgram>, IDisposable where TProgram : class
+public abstract class BaseIntegrationTest<TProgram> : WebApplicationFactory<TProgram>, IDisposable
+    where TProgram : class
 {
-    private readonly HttpClient _client;
+    private const    string                          _baseUrl = "http://localhost";
+    private readonly HttpClient                      _client;
     private readonly WebApplicationFactory<TProgram> _webApplicationFactory;
-    private const string _baseURL = "http://localhost";
 
     internal BaseIntegrationTest()
     {
@@ -29,16 +30,16 @@ public abstract class BaseIntegrationTest<TProgram> : WebApplicationFactory<TPro
 
     protected async Task<TResponseObject> MakeHttpPostRequest<TResponseObject>
     (
-        object body,
+        object          body,
         HttpStatusCode? expectedHttpStatusCode = null,
-        string contentType = "application/json"
+        string          contentType            = "application/json"
     )
     {
         ArgumentNullException.ThrowIfNull(body);
         ArgumentException.ThrowIfNullOrEmpty(contentType);
-        var requestUri = _baseURL;
-        using var request = new HttpRequestMessage(HttpMethod.Post, requestUri);
-        var payload = JsonSerializer.Serialize(body);
+        var                      requestUri = _baseUrl;
+        using HttpRequestMessage request    = new(HttpMethod.Post, requestUri);
+        var                      payload    = JsonSerializer.Serialize(body);
         request.Content = new StringContent(payload, Encoding.UTF8, contentType);
 
         var response = await _client.SendAsync(request);
@@ -53,31 +54,32 @@ public abstract class BaseIntegrationTest<TProgram> : WebApplicationFactory<TPro
         }
 
         var content = await response.Content.ReadAsStringAsync();
-        var options = new JsonSerializerOptions
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
-            PropertyNameCaseInsensitive = true
-        };
+        JsonSerializerOptions options = new()
+                                        {
+                                            PropertyNamingPolicy        = JsonNamingPolicy.CamelCase,
+                                            DictionaryKeyPolicy         = JsonNamingPolicy.CamelCase,
+                                            PropertyNameCaseInsensitive = true
+                                        };
 
         var deserializedObject = JsonSerializer.Deserialize<TResponseObject>(content, options);
         Assert.NotNull(deserializedObject);
+
         return deserializedObject;
     }
 
     protected async Task MakeHttpDeleteRequest(int id, HttpStatusCode expectedHttpStatusCode = HttpStatusCode.NoContent)
     {
-        var requestUri = $"{_baseURL}/{id}";
-        using var request = new HttpRequestMessage(HttpMethod.Delete, requestUri);
-        var response = await _client.SendAsync(request);
+        var                      requestUri = $"{_baseUrl}/{id}";
+        using HttpRequestMessage request    = new(HttpMethod.Delete, requestUri);
+        var                      response   = await _client.SendAsync(request);
         Assert.Equal(response.StatusCode, expectedHttpStatusCode);
     }
 
     protected async Task MakeHttpGetRequest(HttpStatusCode? expectedHttpStatusCode = null)
     {
-        var requestUri = _baseURL;
-        using var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
-        var response = await _client.SendAsync(request);
+        var                      requestUri = _baseUrl;
+        using HttpRequestMessage request    = new(HttpMethod.Get, requestUri);
+        var                      response   = await _client.SendAsync(request);
         if (expectedHttpStatusCode is not null)
         {
             Assert.Equal(response.StatusCode, expectedHttpStatusCode);
@@ -88,11 +90,12 @@ public abstract class BaseIntegrationTest<TProgram> : WebApplicationFactory<TPro
         }
     }
 
-    protected async Task<TResponseObject> MakeHttpGetRequest<TResponseObject>(HttpStatusCode? expectedHttpStatusCode = null)
+    protected async Task<TResponseObject> MakeHttpGetRequest<TResponseObject>(
+        HttpStatusCode? expectedHttpStatusCode = null)
     {
-        var requestUri = _baseURL;
-        using var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
-        var response = await _client.SendAsync(request);
+        var                      requestUri = _baseUrl;
+        using HttpRequestMessage request    = new(HttpMethod.Get, requestUri);
+        var                      response   = await _client.SendAsync(request);
 
         if (expectedHttpStatusCode is not null)
         {
@@ -104,13 +107,14 @@ public abstract class BaseIntegrationTest<TProgram> : WebApplicationFactory<TPro
         }
 
         var content = await response.Content.ReadAsStringAsync();
-        var options = new JsonSerializerOptions
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        };
+        JsonSerializerOptions options = new()
+                                        {
+                                            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                                        };
 
         var deserializedObject = JsonSerializer.Deserialize<TResponseObject>(content, options);
         Assert.NotNull(deserializedObject);
+
         return deserializedObject;
     }
 }
