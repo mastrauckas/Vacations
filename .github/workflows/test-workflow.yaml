@@ -2,7 +2,7 @@ name: Running build and test
 
 on:
   pull_request:
-    branches: [master]
+    branches: [ master ]
 
 env:
   DOTNET_VERSION: "8.0.x"
@@ -13,7 +13,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ ubuntu-latest, windows-latest, macOS-latest ]
 
     steps:
       - uses: actions/checkout@v3

@@ -1,4 +1,4 @@
-var builder = WebApplication.CreateBuilder(args);
+var builder          = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration["ConnectionStrings:VacationDbConnectionString"];
 
 builder.Services.ConfigureService<VacationsContext>(connectionString);
@@ -9,4 +9,6 @@ app.UseHttpsRedirection();
 app.ConfigureApi();
 app.Run();
 
-public partial class Program { }
+public partial class Program
+{
+}

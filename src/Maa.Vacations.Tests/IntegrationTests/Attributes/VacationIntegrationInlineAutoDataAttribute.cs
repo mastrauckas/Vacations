@@ -2,8 +2,8 @@
 
 public class VacationIntegrationInlineAutoDataAttribute : InlineAutoDataAttribute
 {
-    public VacationIntegrationInlineAutoDataAttribute(params object[] values) : base(new VacationIntegrationAutoDataAttribute(), values)
+    public VacationIntegrationInlineAutoDataAttribute(params object[] values) :
+        base(new VacationIntegrationAutoDataAttribute(), values)
     {
     }
 }
-

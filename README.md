@@ -6,7 +6,7 @@
 
 1. Bring up `Package Manager Console` by clicking `Tools=>NuGet Package Manager=>Package Manager Console`.
 2. Run `Add-Migration InitialMigration -verbose -StartupProject Maa.Vacations.WebApi -Project Maa.Vacations.Entities`.
-    - `-Project` means which project contains the DbContext class 
+    - `-Project` means which project contains the DbContext class
     - `-StartupProject` means which project contains the Db connection info and other information.
 3. Update the database by running `Update-Database`.
 
@@ -15,9 +15,11 @@
 1. Install these tools.
     - `dotnet tool install --global dotnet-ef`
     - `dotnet tool update --global dotnet-ef`
-2. Run `dotnet ef migrations add InitialMigration -verbose --startup-project Maa.Vacations.WebApi --project Maa.Vacations.Entities`
+2. Run `dotnet ef migrations add InitialMigration -verbose --startup-project Maa.Vacations.WebApi
+   --project Maa.Vacations.Entities`
     - `--project` means which project contains the DbContext class
     - `--startup-project` means which project contains the Db connection info and other information.
+
 3. Update the database by running `dotnet ef database update`.
 
 ## For more documentation

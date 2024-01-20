@@ -2,8 +2,8 @@
 
 public class VacationUnitTestInlineAutoDataAttribute : InlineAutoDataAttribute
 {
-    public VacationUnitTestInlineAutoDataAttribute(params object[] values) : base(new VacationUnitTestAutoDataAttribute(), values)
+    public VacationUnitTestInlineAutoDataAttribute(params object[] values) :
+        base(new VacationUnitTestAutoDataAttribute(), values)
     {
     }
 }
-

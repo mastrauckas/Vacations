@@ -2,12 +2,11 @@
 
 namespace Maa.Vacations.WebApi.Filters;
 
-
 public class ValidateAnnotationsFilter : IEndpointFilter
 {
     public async ValueTask<object?> InvokeAsync(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
     {
-        if(context.HttpContext.Request.Method == "POST")
+        if (context.HttpContext.Request.Method == "POST")
         {
             var createVacationDto = context.GetArgument<CreateVacationDto>(1);
 

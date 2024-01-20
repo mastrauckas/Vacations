@@ -1,18 +1,18 @@
 ﻿namespace Maa.Vacations.Repositories;
 
 public abstract class BaseRepository<TKeyType, TEntity, TDbContext> : IBaseRepository<TKeyType, TEntity, TDbContext>
-                                                                    where TKeyType : struct
-                                                                    where TEntity : class
-                                                                    where TDbContext : DbContext
+    where TKeyType : struct
+    where TEntity : class
+    where TDbContext : DbContext
 
 {
-    private readonly TDbContext _context;
+    private readonly   TDbContext     _context;
     protected readonly DbSet<TEntity> _dbSet;
 
     protected BaseRepository(TDbContext context)
     {
         _context = context;
-        _dbSet = context.Set<TEntity>();
+        _dbSet   = context.Set<TEntity>();
     }
 
     public virtual async Task<TEntity> GetByIdAsync(TKeyType id)
