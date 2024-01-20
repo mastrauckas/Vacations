@@ -1,4 +1,14 @@
 [*.cs]
+
+# max_line_length=120
+
+# ReSharper
+resharper_place_accessorholder_attribute_on_same_line = false
+resharper_place_accessor_attribute_on_same_line = false
+resharper_place_type_attribute_on_same_line = true
+resharper_use_continuous_indent_inside_initializer_braces = false
+resharper_use_continuous_indent_inside_parens = false
+
 #### Naming styles ####
 
 # Naming rules

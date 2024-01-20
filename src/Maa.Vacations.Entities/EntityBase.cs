@@ -10,5 +10,4 @@ public abstract record EntityBase<T>
 
     [Required]
     public required DateTime LastUpdatedDateTime { get; set; }
-
 }
