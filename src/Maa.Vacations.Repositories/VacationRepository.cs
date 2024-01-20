@@ -9,7 +9,7 @@ public class VacationRepository : BaseRepository<int, Vacation, VacationsContext
     public async Task<IEnumerable<Vacation>> GetAllVacationsAsync()
     {
         return await _dbSet
-                        .Where(r => !r.DeletedDateTime.HasValue)
-                        .ToListAsync();
+                     .Where(r => !r.DeletedDateTime.HasValue)
+                     .ToListAsync();
     }
 }

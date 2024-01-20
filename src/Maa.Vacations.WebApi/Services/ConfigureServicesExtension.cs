@@ -2,7 +2,8 @@
 
 public static class ConfigureServicesExtension
 {
-    public static void ConfigureService<TDbContext>(this IServiceCollection services, string? connectionString) where TDbContext : DbContext
+    public static void ConfigureService<TDbContext>(this IServiceCollection services, string? connectionString)
+        where TDbContext : DbContext
     {
         ArgumentException.ThrowIfNullOrEmpty(connectionString);
         services.AddDbContext<TDbContext>(c => c.UseSqlite(connectionString));

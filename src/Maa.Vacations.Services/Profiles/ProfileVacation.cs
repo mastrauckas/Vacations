@@ -9,7 +9,6 @@ public class ProfileVacation : Profile
         CreateMap<Vacation, VacationCreatedDto>();
         CreateMap<Vacation, CurrentVacationDto>();
         CreateMap<Vacation, DeletedVacationDto>();
-        CreateMap<Vacation, VacationUpdatedDto>();  
+        CreateMap<Vacation, VacationUpdatedDto>();
     }
 }
-
