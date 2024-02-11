@@ -5,23 +5,24 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <LangVersion>12</LangVersion>
+        <UserSecretsId>727577fd-2780-4c82-964b-90b4aff89756</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AutoMapper" Version="12.0.1"/>
-        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1"/>
+        <PackageReference Include="AutoMapper" Version="12.0.1" />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.1">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="MiniValidation" Version="0.9.0"/>
+        <PackageReference Include="MiniValidation" Version="0.9.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Maa.Vacations.Entities\Maa.Vacations.Entities.csproj"/>
-        <ProjectReference Include="..\Maa.Vacations.Dtos\Maa.Vacations.Dtos.csproj"/>
-        <ProjectReference Include="..\Maa.Vacations.Services\Maa.Vacations.Services.csproj"/>
+        <ProjectReference Include="..\Maa.Vacations.Entities\Maa.Vacations.Entities.csproj" />
+        <ProjectReference Include="..\Maa.Vacations.Dtos\Maa.Vacations.Dtos.csproj" />
+        <ProjectReference Include="..\Maa.Vacations.Services\Maa.Vacations.Services.csproj" />
     </ItemGroup>
 
 </Project>
