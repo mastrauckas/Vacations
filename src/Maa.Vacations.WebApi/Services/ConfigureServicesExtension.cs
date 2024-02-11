@@ -1,4 +1,4 @@
-﻿namespace Maa.Vacations.WebApi.Services;
+namespace Maa.Vacations.WebApi.Services;
 
 public static class ConfigureServicesExtension
 {
@@ -6,7 +6,7 @@ public static class ConfigureServicesExtension
         where TDbContext : DbContext
     {
         ArgumentException.ThrowIfNullOrEmpty(connectionString);
-        services.AddDbContext<TDbContext>(c => c.UseSqlite(connectionString));
+        services.AddDbContext<TDbContext>(c => c.UseSqlServer(connectionString));
         services.AddTransient<IVacationService, VacationService>();
         services.AddTransient<IVacationRepository, VacationRepository>();
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
